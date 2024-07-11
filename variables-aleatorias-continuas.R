@@ -7,4 +7,14 @@
 #     V(x) <- (20-0)^2 / 12; V(x)= 33.3333
 #     DT(x) <- sqrt(V(x)); DT(x)= 5.7735
 
+# Ejercicio 2
+# a) Genera 5 valores aleatorios de una distribución Uniforme (0,1).
+runif(5,0,1)
+# b) Genera 5 valores aleatorios de una distribución Uniforme (100,120).
+runif(5,100,120)
+
+# Ejercicio 3
+# a) P (1 <= Z <= 2) = P(Z<=2) - P(Z<1) = F(2) - F(1)
+pnorm(2,0,1) - pnorm(1,0,1)
+
 
