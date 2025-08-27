@@ -153,6 +153,57 @@ nota_min <- qnorm(0.05, 700, 120)
 nota_min
 
 
+Ejercicio 9
+La renta media de las familias de un país se distribuye según una normal con media
+30.000 euros y desviación típica 10.000 euros. Calcular la probabilidad de que al
+seleccionar al azar a 50 familias, la suma de sus rentas superen el millón y medio de
+euros.
+mu <- 30000
+sigma <- 10000
+n <- 50
+
+mu_S <- n * mu
+sigma_S <- sigma * sqrt(n)
+
+p_superior <- 1 - pnorm(1500000, mean = mu_S, sd = sigma_S)
+p_superior
 
 
+Ejercicio 10
+En un proceso de fabricación, se sabe que el número aleatorio de unidades defectuosas
+producidas diariamente viene dado por una variable de Poisson de media 10. Determinar
+la probabilidad de que en 150 días el número de unidades defectuosas producidas supere
+las 1480.
+a) Utiliza la variable aleatoria que modeliza exactamente esta situación.
+b) Utiliza una aproximación de la variable aleatoria a la distribución normal.
+
+lambda_s <- 150 * 10  # 1500
+
+# Probabilidad de que S > 1480 = 1 - P(S <= 1480)
+p_exacta <- 1 - ppois(1480, lambda_s)
+p_exacta
+
+mu <- lambda_s
+sigma <- sqrt(lambda_s)
+
+# Corrección de continuidad
+p_normal <- 1 - pnorm(1480 + 0.5, mu, sigma)
+p_normal
+
+
+
+Ejercicio 11
+La duración de un cierto modelo de batería tiene una distribución exponencial. Se sabe
+que la media de dicha distribución es de 5000 horas. El fabricante de las baterías debe
+informar cual es la duración de esas baterías. ¿Qué duración debe informar si quiere
+que la probabilidad de que una batería concreta viva más que esa duración informada
+sea del 90%?
+
+media <- 5000
+lambda <- 1 / media
+
+x0 <- -log(0.9) / lambda
+x0
+
+Resultado: 526.8h
  
