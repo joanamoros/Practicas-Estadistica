@@ -83,21 +83,76 @@ sigma.promx
 pnorm(65,media.promx,sigma.promx) - pnorm(64,media.promx,sigma.promx) 
 ## 0.5
 
-Ejercicio 6 (me quedé por aquí)
+Ejercicio 6
 La duración de un láser semiconductor a potencia constante tiene una distribución
 normal con media 7.000 horas y desviación típica de 600 horas.
 a) ¿Cuál es la probabilidad de que el láser falle antes de 5.000 horas?
 P(x<5000) = pnorm(5000,7000,600)
 ## 0.0004290603
-
 b) ¿Cuál es la duración en horas excedida por el 95% de los láseres?
-P(X>x) = 0.95 ¿x?, 1 - P(X<=x) = 0.95, P(X<=x) =0.05 : qnorm(0.05, 7000, 600)
-
-
+## P(X > x) = 0.95 ¿x?
+## 1 - P(X ≤ x) = 0.95
+## P(X ≤ x) = 0.05 : 
+qnorm(0.05, 7000, 600)
+## 6013.088
 c) Si se hace uso de tres láseres en un producto y se supone que fallan de manera
 independiente ¿Cuál es la probabilidad de que tres sigan funcionando después de
 7.000 horas?
-Haz este en R
+# Probabilidad de que un láser dure más de 7000 horas
+p_uno_despues_7000h <- 1-pnorm(7000,7000,600)
+p_uno_despues_7000h
+## 0.5
+# Probabilidad de que los tres sigan funcionando
+p_tres_despues_7000h <- p_uno_despues_7000h^3
+p_tres_despues_7000h
+## 0.125
+
+Ejercicio 7
+En un banco, la probabilidad de recibir un cheque sin fondos es igual a 0,15. Durante
+esta semana se han recibido 1000 cheques, hallar (usa para el cálculo de estas
+probabilidades la aproximación de la Binomial a la Normal):
+a) Probabilidad de recibir más de 125 cheques sin fondos.
+b) La probabilidad de que el número de cheques sin fondos esté entre 140 y 155
+(extremos incluidos).
+n <- 1000
+p <- 0.15
+mu <- n*p
+sigma <- sqrt(n*p*(1-p))
+# a) P(X > 125) -> con corrección de continuidad
+p_a <- 1 - pnorm(125 + 0.5,mu,sigma)
+p_a
+# b) P(140 <= X <= 155) -> con corrección de continuidad
+p_b <- pnorm(155 + 0.5,mu,sigma) - pnorm(140 - 0.5,mu,sigma)
+p_b
+
+Ejercicio 8
+Las notas obtenidas en un examen por un grupo grande de alumnos se distribuyen según
+una normal de media 700 y desviación típica 120.
+mu <- 700
+sigma <- 120
+a) Se obtiene A con una nota mayor que 820 ¿qué proporción de estudiantes reciben
+A?
+p_A <- 1 - pnorm(820, 700, 120)
+p_A
+b) Se obtiene B con una nota entre 730 y 820. Un profesor tiene un grupo de 100
+alumnos, que puede verse como una muestra aleatoria del total de los estudiantes.
+b.1 ¿Cuál es la probabilidad de que un alumno obtenga una nota B?
+p_B <- pnorm(820, 700, 120) - pnorm(730, 700, 120)
+p_B
+b.2 ¿Cuál es la probabilidad de que obtengan una nota B, 30 alumnos o menos?
+n <- 100
+# Binomial
+p_30oMenos <- pbinom(30, 100, p_B)
+p_30oMenos
+b.3 Hallar el número esperado de estudiantes de esta clase que obtendrán una B.
+esperados_B <- n * p_B
+esperados_B
+c) Se decide suspender al 5% de estudiantes con notas más bajas. ¿Cuál es la nota
+mínima necesaria para no suspender?
+nota_min <- qnorm(0.05, 700, 120)
+nota_min
+
+
 
 
  
